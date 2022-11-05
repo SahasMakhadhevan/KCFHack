@@ -6,3 +6,6 @@ ONEMIN = 60000
 
 # Epoch 1 week in ms
 ONEWEEK = 7*ONEDAY
+
+# Epcoh 1 month in ms
+ONEMONTH = 4*ONEWEEK
