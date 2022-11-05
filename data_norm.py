@@ -8,3 +8,4 @@ def norm_oneweek():
 
 def norm_onemonth():
     print("one month")
+
