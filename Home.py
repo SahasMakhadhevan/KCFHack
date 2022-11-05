@@ -1,5 +1,5 @@
 import streamlit as st
-import pandas as pd
+import DataLoading
 
 st.title("Home")
 
@@ -9,15 +9,8 @@ selected_time = st.sidebar.selectbox("Time Units", ["Day", "Week", "Month"])
 st.markdown(selected_fan)
 st.markdown(selected_time)
 
-@st.cache
-def load_temps():
-    data = pd.read_csv(r"Data_set/HackPSU/Fan 1/Temperature.csv", header=None)
-    data.columns = ["Time", "Temp"]
-    return data
-
-
 data_load_state = st.text('Loading data...')
-temp_data = load_temps()
+temp_data = DataLoading.load_temps()
 data_load_state.text('Loading data...done!')
 
 # Line chart for Temps
