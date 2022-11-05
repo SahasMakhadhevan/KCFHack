@@ -1,10 +1,13 @@
 import streamlit as st
 import pandas as pd
 
-st.title("KCF Home")
+st.title("Home")
 
-selected_fan = st.sidebar.selectbox("Fan Selector", ["Fan 1", "Fan 2"])
+selected_fan = st.sidebar.selectbox("Fan Selector", ["Fan 1", "Fan 2", "Fan 3", "Fan 4", "Fan 5", "Fan 6", "Fan 7"])
 selected_time = st.sidebar.selectbox("Time Units", ["Day", "Week", "Month"])
+
+st.markdown(selected_fan)
+st.markdown(selected_time)
 
 @st.cache
 def load_temps():
