@@ -2,30 +2,23 @@ import constants
 import DataLoading
 import pandas as pd
 
-path = r"E:\Hackathon\KCFHack\Data_set\HackPSU\Fan 1\Temperature.csv"
 
-data = DataLoading.load_temp(path)
-
-
-def norm_oneweek():
+def norm_oneweek(data):
     data.Time = pd.to_datetime(data.Time)
     data.Temp = pd.to_numeric(data.Temp)
     result = data.resample('W-FRI', on="Time").Temp.describe()
-    end = result.head(10)
-    return end
+    return result
 
 
-def norm_oneday():
-    data['mean'] = \
-    data.groupby(pd.cut(data['Temp'], range(data.loc[0, "Time"], data.loc[0, "Time"] + constants.ONEDAY)))[
-        'Temp'].transform('mean')
-    return (data)
-
-def norm_onehour():
+def norm_oneday(data):
     data.Time = pd.to_datetime(data.Time)
     data.Temp = pd.to_numeric(data.Temp)
-    result = data.resample('60T', on="Time").Temp.describe()
-    end = result.head(10)
-    return end
+    result = data.resample('D', on="Time").Temp.mean()
+    return result
 
-print(norm_oneweek())
+
+def norm_onehour(data):
+    data.Time = pd.to_datetime(data.Time)
+    data.Temp = pd.to_numeric(data.Temp)
+    result = data.resample('60T', on="Time").Temp.mean()
+    return result
