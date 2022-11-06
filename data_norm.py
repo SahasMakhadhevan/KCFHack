@@ -20,5 +20,5 @@ def norm_oneday(data):
 def norm_onehour(data):
     data.Time = pd.to_datetime(data.Time)
     data.Temp = pd.to_numeric(data.Temp)
-    result = data.resample('60T', on="Time").Temp.mean()
+    result = data.resample('H', on="Time").Temp.mean()
     return result
