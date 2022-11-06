@@ -1,5 +1,6 @@
 import streamlit as st
 import DataLoading
+import data_norm
 
 st.title("Home")
 
