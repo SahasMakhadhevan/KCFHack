@@ -2,11 +2,14 @@ import constants
 import DataLoading
 import pandas as pd
 
-data = DataLoading.load_temps()
-endtime = data.tail()
-print(endtime)
+path = r"E:\Hackathon\KCFHack\Data_set\HackPSU\Fan 1\Temperature.csv"
+
+data = DataLoading.load_temp(path)
+
 def norm_oneweek():
-    temp = data.filter(like='2022 Oct ')
+    data.Time = pd.to_datetime(data.Time)
+    result = data.resample('W', on="Time").Temp.mean()
+    print(result)
 
 def norm_oneday():
     data['mean'] = data.groupby(pd.cut(data['Temp'], range(data.loc[0, "Time"], data.loc[0, "Time"] + constants.ONEDAY)))['Temp'].transform('mean')

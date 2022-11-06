@@ -1,7 +1,6 @@
 import pandas as pd
 import time
 
-
 def convertTime(tmpTime):
     foo = time.gmtime(tmpTime)
     bar = time.strftime("%Y %b %d %H:%M:%S", foo)
