@@ -1,6 +1,8 @@
 import DataLoading
+#import statsmodels.api as smapi
 from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.stattools import adfuller
+from statsmodels.tsa.stattools import acf
 import pandas as pd
 from pmdarima import auto_arima
 import warnings
@@ -29,24 +31,5 @@ def ad_test(data):
         print("\t", key, ": ", val)
 
 
-#
-# stepwise_fit = auto_arima(Data['avgTemp'], trace=True, suppress_warnings=True)
-# stepwise_fit.summary()
-# ad_test(Data)
+ad_test(Data)
 
-# Create Training and Test
-train = Data.Temp[:85]
-test = Data.Temp[85:]
-
-# Build Model
-# model = ARIMA(train, order=(3,2,1))
-model = ARIMA(train, order=(1, 1, 1))
-fitted = model.fit(disp=-1)
-
-# Forecast
-fc, se, conf = fitted.forecast(15, alpha=0.05)  # 95% conf
-
-# Make as pandas series
-fc_series = pd.Series(fc, index=test.index)
-lower_series = pd.Series(conf[:, 0], index=test.index)
-upper_series = pd.Series(conf[:, 1], index=test.index)
