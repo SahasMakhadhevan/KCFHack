@@ -1,6 +1,7 @@
 import streamlit as st
 import DataLoading
 import altair as alt
+import data_norm
 
 
 def getAggregate(num, span, path, type):
@@ -11,9 +12,9 @@ def getAggregate(num, span, path, type):
             data = DataLoading.load_Acceleration(path)
         else:
             data = DataLoading.load_velocity(path)
-        data = getWeeks(data)
+        data = data_norm.norm_oneweek(data)
         if num == 9:
-            return data.Tail(9)
+            return data.tail(9)
         return data
     elif span == "Days":
         if type == "Temp":
@@ -22,10 +23,10 @@ def getAggregate(num, span, path, type):
             data = DataLoading.load_Acceleration(path)
         else:
             data = DataLoading.load_velocity(path)
-        data = getDays(data)
+        data = data_norm.norm_oneday(data)
         if num == 7:
-            return data.Tail(7)
-        return data.Tail(30)
+            return data.tail(7)
+        return data.tail(30)
     else:
         if type == "Temp":
             data = DataLoading.load_temp(path)
@@ -33,8 +34,8 @@ def getAggregate(num, span, path, type):
             data = DataLoading.load_Acceleration(path)
         else:
             data = DataLoading.load_velocity(path)
-        data = getHours(data)
-        return data.Tail(24)
+        data = data_norm.norm_onehour(data)
+        return data.tail(24)
 
 
 def switchTime(time, path, type):
@@ -62,41 +63,49 @@ data_load_state = st.text('Loading data...')
 temperature_data = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Temperature.csv", "Temp")
 x_Peak_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/Peak Acceleration.csv", "Acceleration")
 x_Peak_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/Peak Velocity.csv", "Velocity")
-x_RMS_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/RMA Acceleration.csv", "Acceleration")
-x_RMS_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/RMA Velocity.csv", "Velocity")
+x_RMS_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/RMS Acceleration.csv", "Acceleration")
+x_RMS_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/RMS Velocity.csv", "Velocity")
 y_Peak_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/Peak Acceleration.csv", "Acceleration")
 y_Peak_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/Peak Velocity.csv", "Velocity")
-y_RMS_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/RMA Acceleration.csv", "Acceleration")
-y_RMS_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/RMA Velocity.csv", "Velocity")
+y_RMS_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/RMS Acceleration.csv", "Acceleration")
+y_RMS_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/RMS Velocity.csv", "Velocity")
 
 data_load_state.text('Loading data...done!')
 
-st.write(temperature_data.describe())
 
 # Line chart for Temps
-linechart = alt.Chart(temperature_data).mark_line().encode(y="Temp", x="Time")
+st.write("Temperature")
+linechart = alt.Chart(temperature_data).mark_line().encode(y="Value", x="Time")
 st.altair_chart(linechart, use_container_width=True)
 
-linechart = alt.Chart(x_Peak_Acceleration).mark_line().encode(y="Acceleration", x="Time")
+st.write("X-Axis Peak Acceleration")
+linechart = alt.Chart(x_Peak_Acceleration).mark_line().encode(y="Value", x="Time")
 st.altair_chart(linechart, use_container_width=True)
 
-linechart = alt.Chart(x_Peak_Velocity).mark_line().encode(y="Velocity", x="Time")
+st.write("X-Axis Peak Velocity")
+linechart = alt.Chart(x_Peak_Velocity).mark_line().encode(y="Value", x="Time")
 st.altair_chart(linechart, use_container_width=True)
 
-linechart = alt.Chart(x_RMS_Acceleration).mark_line().encode(y="Acceleration", x="Time")
+st.write("X-Axis RMS Acceleration")
+linechart = alt.Chart(x_RMS_Acceleration).mark_line().encode(y="Value", x="Time")
 st.altair_chart(linechart, use_container_width=True)
 
-linechart = alt.Chart(x_RMS_Velocity).mark_line().encode(y="Velocity", x="Time")
+st.write("X-Axis RMS Velocity")
+linechart = alt.Chart(x_RMS_Velocity).mark_line().encode(y="Value", x="Time")
 st.altair_chart(linechart, use_container_width=True)
 
-linechart = alt.Chart(y_Peak_Acceleration).mark_line().encode(y="Acceleration", x="Time")
+st.write("Y-Axis Peak Acceleration")
+linechart = alt.Chart(y_Peak_Acceleration).mark_line().encode(y="Value", x="Time")
 st.altair_chart(linechart, use_container_width=True)
 
-linechart = alt.Chart(y_Peak_Velocity).mark_line().encode(y="Velocity", x="Time")
+st.write("Y-Axis Peak Velocity")
+linechart = alt.Chart(y_Peak_Velocity).mark_line().encode(y="Value", x="Time")
 st.altair_chart(linechart, use_container_width=True)
 
-linechart = alt.Chart(y_RMS_Acceleration).mark_line().encode(y="Acceleration", x="Time")
+st.write("Y-Axis RMS Acceleration")
+linechart = alt.Chart(y_RMS_Acceleration).mark_line().encode(y="Value", x="Time")
 st.altair_chart(linechart, use_container_width=True)
 
-linechart = alt.Chart(y_RMS_Velocity).mark_line().encode(y="Velocity", x="Time")
+st.write("Y-Axis RMS Velocity")
+linechart = alt.Chart(y_RMS_Velocity).mark_line().encode(y="Value", x="Time")
 st.altair_chart(linechart, use_container_width=True)
