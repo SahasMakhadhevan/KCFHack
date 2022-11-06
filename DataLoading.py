@@ -8,7 +8,7 @@ def convertTime(tmpTime):
 
 def load_temp(path):
     data = pd.read_csv(path, header=None)
-    data.columns = ["Time", "Temp"]
+    data.columns = ["Time", "Value"]
 
     #Replaces epoch time in col 0 with formatted string dateTime
     for index, row in data.iterrows():
@@ -19,7 +19,7 @@ def load_temp(path):
 
 def load_Acceleration(path):
     data = pd.read_csv(path, header=None)
-    data.columns = ["Time", "Acceleration"]
+    data.columns = ["Time", "Value"]
 
     #Replaces epoch time in col 0 with formatted string dateTime
     for index, row in data.iterrows():
@@ -29,7 +29,7 @@ def load_Acceleration(path):
 
 def load_velocity(path):
     data = pd.read_csv(path, header=None)
-    data.columns = ["Time", "Velocity"]
+    data.columns = ["Time", "Value"]
 
     #Replaces epoch time in col 0 with formatted string dateTime
     for index, row in data.iterrows():
