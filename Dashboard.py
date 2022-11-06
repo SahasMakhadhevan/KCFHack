@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-st.title("Home")
+st.title("Dashboard")
 
 selected_fan = st.sidebar.selectbox("Fan Selector", ["Fan 1", "Fan 2", "Fan 3", "Fan 4", "Fan 5", "Fan 6", "Fan 7"])
 selected_time = st.sidebar.selectbox("Time Units", ["Day", "Week", "Month"])
