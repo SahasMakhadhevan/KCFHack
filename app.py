@@ -10,19 +10,18 @@ st.title("KCF Tech Dashboard")
 @st.cache
 
 def convertTime(tmpTime):
-    #return time.gettime(raw"%Y-%m-%d %H:%M:%S +0000", gmtime())
-    #foo = time.gmtime(tmpTime)
-    #bar = time.strftime("%a, %d %b %Y %H:%M:%S +0000", foo)
-    yeet = datetime.datetime.fromtimestamp(tmpTime)
-    print(yeet)
-    return yeet
+    foo = time.gmtime(tmpTime)
+    bar = time.strftime("%a, %d %b %Y %H:%M:%S +0000", foo)
+
+    return bar
 
 def load_temps():
     data = pd.read_csv(r"Data_set/HackPSU/Fan 1/Temperature.csv", header=None)
     data.columns = ["Time", "Temp"]
 
     for index, row in data.iterrows():
-        data.loc[index, "Time"] = convertTime(row["Time"])
+        #temp = row["Time"]
+        data.loc[index, "Time"] = convertTime(int(str(row["Time"])[:-5]))
 
     return data
 
