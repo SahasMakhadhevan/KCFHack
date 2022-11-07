@@ -79,7 +79,6 @@ st.write("Temperature")
 linechart = alt.Chart(temperature_data).mark_line().encode(y="Value", x="Time")
 st.altair_chart(linechart, use_container_width=True)
 
-
 col1, col2 = st.columns(2)
 col1.write("X-Axis Peak Acceleration")
 linechart = alt.Chart(x_Peak_Acceleration).mark_line().encode(y="Value", x="Time")
@@ -112,35 +111,3 @@ col1.altair_chart(linechart, use_container_width=True)
 col2.write("Y-Axis RMS Velocity")
 linechart = alt.Chart(y_RMS_Velocity).mark_line().encode(y="Value", x="Time")
 col2.altair_chart(linechart, use_container_width=True)
-=======
-st.write("X-Axis Peak Acceleration")
-linechart = alt.Chart(x_Peak_Acceleration).mark_line().encode(y="Value", x="Time")
-st.altair_chart(linechart, use_container_width=True)
-
-st.write("X-Axis Peak Velocity")
-linechart = alt.Chart(x_Peak_Velocity).mark_line().encode(y="Value", x="Time")
-st.altair_chart(linechart, use_container_width=True)
-
-st.write("X-Axis RMS Acceleration")
-linechart = alt.Chart(x_RMS_Acceleration).mark_line().encode(y="Value", x="Time")
-st.altair_chart(linechart, use_container_width=True)
-
-st.write("X-Axis RMS Velocity")
-linechart = alt.Chart(x_RMS_Velocity).mark_line().encode(y="Value", x="Time")
-st.altair_chart(linechart, use_container_width=True)
-
-st.write("Y-Axis Peak Acceleration")
-linechart = alt.Chart(y_Peak_Acceleration).mark_line().encode(y="Value", x="Time")
-st.altair_chart(linechart, use_container_width=True)
-
-st.write("Y-Axis Peak Velocity")
-linechart = alt.Chart(y_Peak_Velocity).mark_line().encode(y="Value", x="Time")
-st.altair_chart(linechart, use_container_width=True)
-
-st.write("Y-Axis RMS Acceleration")
-linechart = alt.Chart(y_RMS_Acceleration).mark_line().encode(y="Value", x="Time")
-st.altair_chart(linechart, use_container_width=True)
-
-st.write("Y-Axis RMS Velocity")
-linechart = alt.Chart(y_RMS_Velocity).mark_line().encode(y="Value", x="Time")
-st.altair_chart(linechart, use_container_width=True)
