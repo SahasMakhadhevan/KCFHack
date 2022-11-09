@@ -5,6 +5,7 @@ import data_norm
 
 st.set_page_config(layout="wide")
 
+
 def getAggregate(num, span, path, type):
     if span == "Weeks":
         if type == "Temp":
@@ -56,7 +57,6 @@ st.title("Dashboard")
 
 selected_fan = st.sidebar.selectbox("Fan Selector", ["Fan 1", "Fan 2", "Fan 3", "Fan 4", "Fan 5", "Fan 6", "Fan 7"])
 selected_time = st.sidebar.selectbox("Amount of Time", ["1 Day", "1 Week", "1 Month", "2 Months", "All Data"])
-
 
 
 data_load_state = st.text('Loading data...')
