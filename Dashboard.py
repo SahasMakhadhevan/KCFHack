@@ -6,51 +6,36 @@ import data_norm
 st.set_page_config(layout="wide")
 
 
-def getAggregate(num, span, path, type):
+def getAggregate(num, span, path):
     if span == "Weeks":
-        if type == "Temp":
-            data = DataLoading.load_temp(path)
-        elif type == "Acceleration":
-            data = DataLoading.load_Acceleration(path)
-        else:
-            data = DataLoading.load_velocity(path)
+        data = DataLoading.load_data(path)
         data = data_norm.norm_oneweek(data)
         if num == 9:
             return data.tail(9)
         return data
     elif span == "Days":
-        if type == "Temp":
-            data = DataLoading.load_temp(path)
-        elif type == "Acceleration":
-            data = DataLoading.load_Acceleration(path)
-        else:
-            data = DataLoading.load_velocity(path)
+        data = DataLoading.load_data(path)
         data = data_norm.norm_oneday(data)
         if num == 7:
             return data.tail(7)
         return data.tail(30)
     else:
-        if type == "Temp":
-            data = DataLoading.load_temp(path)
-        elif type == "Acceleration":
-            data = DataLoading.load_Acceleration(path)
-        else:
-            data = DataLoading.load_velocity(path)
+        data = DataLoading.load_data(path)
         data = data_norm.norm_onehour(data)
         return data.tail(24)
 
 
-def switchTime(time, path, type):
+def switchTime(time, path):
     if time == "1 Day":
-        return getAggregate(24, "Hours", path, type)
+        return getAggregate(24, "Hours", path)
     elif time == "1 Week":
-        return getAggregate(7, "Days", path, type)
+        return getAggregate(7, "Days", path)
     elif time == "1 Month":
-        return getAggregate(30, "Days", path, type)
+        return getAggregate(30, "Days", path)
     elif time == "2 Months":
-        return getAggregate(9, "Weeks", path, type)
+        return getAggregate(9, "Weeks", path)
     else:
-        return getAggregate(-999, "Weeks", path, type)
+        return getAggregate(-999, "Weeks", path)
 
 
 st.title("Dashboard")
@@ -61,15 +46,15 @@ selected_time = st.sidebar.selectbox("Amount of Time", ["1 Day", "1 Week", "1 Mo
 
 data_load_state = st.text('Loading data...')
 
-temperature_data = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Temperature.csv", "Temp")
-x_Peak_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/Peak Acceleration.csv", "Acceleration")
-x_Peak_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/Peak Velocity.csv", "Velocity")
-x_RMS_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/RMS Acceleration.csv", "Acceleration")
-x_RMS_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/RMS Velocity.csv", "Velocity")
-y_Peak_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/Peak Acceleration.csv", "Acceleration")
-y_Peak_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/Peak Velocity.csv", "Velocity")
-y_RMS_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/RMS Acceleration.csv", "Acceleration")
-y_RMS_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/RMS Velocity.csv", "Velocity")
+temperature_data = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Temperature.csv")
+x_Peak_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/Peak Acceleration.csv")
+x_Peak_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/Peak Velocity.csv")
+x_RMS_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/RMS Acceleration.csv")
+x_RMS_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/RMS Velocity.csv")
+y_Peak_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/Peak Acceleration.csv")
+y_Peak_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/Peak Velocity.csv")
+y_RMS_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/RMS Acceleration.csv")
+y_RMS_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/RMS Velocity.csv")
 
 data_load_state.text('Loading data...done!')
 
