@@ -6,7 +6,7 @@ import data_norm
 st.set_page_config(layout="wide")
 
 
-def getAggregate(num, span, path):
+def get_aggregate(num, span, path):
     if span == "Weeks":
         data = DataLoading.load_data(path)
         data = data_norm.norm_oneweek(data)
@@ -25,17 +25,17 @@ def getAggregate(num, span, path):
         return data.tail(24)
 
 
-def switchTime(time, path):
+def switch_time(time, path):
     if time == "1 Day":
-        return getAggregate(24, "Hours", path)
+        return get_aggregate(24, "Hours", path)
     elif time == "1 Week":
-        return getAggregate(7, "Days", path)
+        return get_aggregate(7, "Days", path)
     elif time == "1 Month":
-        return getAggregate(30, "Days", path)
+        return get_aggregate(30, "Days", path)
     elif time == "2 Months":
-        return getAggregate(9, "Weeks", path)
+        return get_aggregate(9, "Weeks", path)
     else:
-        return getAggregate(-999, "Weeks", path)
+        return get_aggregate(-999, "Weeks", path)
 
 
 st.title("Dashboard")
@@ -46,15 +46,15 @@ selected_time = st.sidebar.selectbox("Amount of Time", ["1 Day", "1 Week", "1 Mo
 
 data_load_state = st.text('Loading data...')
 
-temperature_data = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Temperature.csv")
-x_Peak_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/Peak Acceleration.csv")
-x_Peak_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/Peak Velocity.csv")
-x_RMS_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/RMS Acceleration.csv")
-x_RMS_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/RMS Velocity.csv")
-y_Peak_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/Peak Acceleration.csv")
-y_Peak_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/Peak Velocity.csv")
-y_RMS_Acceleration = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/RMS Acceleration.csv")
-y_RMS_Velocity = switchTime(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/RMS Velocity.csv")
+temperature_data = switch_time(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Temperature.csv")
+x_Peak_Acceleration = switch_time(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/Peak Acceleration.csv")
+x_Peak_Velocity = switch_time(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/Peak Velocity.csv")
+x_RMS_Acceleration = switch_time(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/RMS Acceleration.csv")
+x_RMS_Velocity = switch_time(selected_time, r"Data_set/HackPSU/" + selected_fan + "/X-Axis/RMS Velocity.csv")
+y_Peak_Acceleration = switch_time(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/Peak Acceleration.csv")
+y_Peak_Velocity = switch_time(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/Peak Velocity.csv")
+y_RMS_Acceleration = switch_time(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/RMS Acceleration.csv")
+y_RMS_Velocity = switch_time(selected_time, r"Data_set/HackPSU/" + selected_fan + "/Y-Axis/RMS Velocity.csv")
 
 data_load_state.text('Loading data...done!')
 
