@@ -14,3 +14,5 @@ Utilising the Pandas and streamlit library. Being able to filter data through da
 Working with Pandas dataframe and streamlit library. Working with different branches on Git.
 ## What's next for KCF_Dashboard
 Implementing Machine learning for time series data forecasting.
+## Who built this
+Sahas Makhadhevan, John Janisheski, Yash Saxena, Firdaus Choudhury, and Sarthak Giri
