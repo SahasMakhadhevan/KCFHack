@@ -1,11 +1,11 @@
 # Epoch 1 day in ms
-ONEDAY = 86400000
+ONE_DAY = 86400000
 
 # Epoch 1 minute in ms
-ONEMIN = 60000
+ONE_MINUTE = 60000
 
 # Epoch 1 week in ms
-ONEWEEK = 7*ONEDAY
+ONE_WEEK = 7 * ONE_DAY
 
 # Epoch 1 month in ms
-ONEMONTH = 4*ONEWEEK
+ONE_MONTH = 4 * ONE_WEEK

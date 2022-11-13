@@ -1,41 +1,18 @@
 import pandas as pd
-import time
+import streamlit as st
 
 
-def convertTime(tmpTime):
-    foo = time.gmtime(tmpTime)
-    bar = time.strftime("%Y %b %d %H:%M:%S", foo)
-    return bar
-
-
-def load_data(path):
-    data = pd.read_csv(path, header=None)
+@st.cache
+def load_data(path, num_rows):
+    data = pd.read_csv(path, header=None, nrows=num_rows)
     data.columns = ["Time", "Value"]
-
-    # Replaces epoch time in col 0 with formatted string dateTime
-    for index, row in data.iterrows():
-        data.loc[index, "Time"] = convertTime(int(str(row["Time"])[:-5]))
-
+    data["Time"] = pd.to_datetime(data["Time"], unit="ms")
     return data
 
 
-# def load_Acceleration(path):
-#     data = pd.read_csv(path, header=None)
-#     data.columns = ["Time", "Value"]
-#
-#     Replaces epoch time in col 0 with formatted string dateTime
-    # for index, row in data.iterrows():
-    #     data.loc[index, "Time"] = convertTime(int(str(row["Time"])[:-5]))
-    #
-    # return data
-#
-#
-# def load_velocity(path):
-#     data = pd.read_csv(path, header=None)
-#     data.columns = ["Time", "Value"]
-#
-#     Replaces epoch time in col 0 with formatted string dateTime
-    # for index, row in data.iterrows():
-    #     data.loc[index, "Time"] = convertTime(int(str(row["Time"])[:-5]))
-    #
-    # return data
+@st.cache
+def load_alerts_data(path):
+    data = pd.read_csv(path, header=None)
+    data.columns = ["Time", "Value"]
+    data["Time"] = pd.to_datetime(data["Time"], unit="ms")
+    return data

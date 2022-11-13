@@ -8,19 +8,22 @@ st.set_page_config(layout="wide")
 
 def get_aggregate(num, span, path):
     if span == "Weeks":
-        data = DataLoading.load_data(path)
+        # data = DataLoading.load_data(path)
+        data = DataLoading.load_alerts_data(path)
         data = data_norm.norm_oneweek(data)
         if num == 9:
             return data.tail(9)
         return data
     elif span == "Days":
-        data = DataLoading.load_data(path)
+        # data = DataLoading.load_data(path)
+        data = DataLoading.load_alerts_data(path)
         data = data_norm.norm_oneday(data)
         if num == 7:
             return data.tail(7)
         return data.tail(30)
     else:
-        data = DataLoading.load_data(path)
+        # data = DataLoading.load_data(path)
+        data = DataLoading.load_alerts_data(path)
         data = data_norm.norm_onehour(data)
         return data.tail(24)
 
